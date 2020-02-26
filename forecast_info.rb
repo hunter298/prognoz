@@ -58,6 +58,7 @@ class ForecastInfo
       puts get_forecast(ind).to_s
       puts
     end
+    return nil
   end
 
   def self.daytime
