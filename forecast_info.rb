@@ -10,9 +10,9 @@ class ForecastInfo
              1 => 'Хули тут так малооблачно', 2 => 'Облачно белогриволошадочно',
              3 => 'Илья Пасмурномец'}
 
-  @@DAYTIME = {1 => "Today nignt", 2 => "Today morning", 3 => "Today noon",
-               4 => "Today evening", 5 => "Tomorrow nignt", 6 => "Tomorrow morning",
-               7 => "Tomorrow noon"}
+  @@DAYTIME = {1 => "Сегодня ночью", 2 => "Сегодня утром", 3 => "Сегодня днем",
+               4 => "Сегодня вечером", 5 => "Завтра ночью", 6 => "Завтра утром",
+               7 => "Завтра днем"}
 
   def initialize params
 
@@ -40,22 +40,21 @@ class ForecastInfo
     cloudiness = forecast.elements['PHENOMENA'].attributes['cloudiness']
 
 
-
     return self.new(town: town_name, mint: min_temp, maxt: max_temp,
-                  maxw: max_wind, cloud: cloudiness)
+                    maxw: max_wind, cloud: cloudiness)
   end
 
   def to_s
-    puts "Погода в городе #{@town_name.split(',')[0]} на сегодня."
-    puts "Максимальная температура: #{@max_temp}\u00B0C"
-    puts "Минимальная температура: #{@min_temp}\u00B0C"
-    puts "Ветер - до #{@max_wind} м/с"
-    puts @@CLOUD[@cloudiness.to_i] + '.'
+    puts "погода в городе #{@town_name.split(',')[0]}:"
+    puts "\u2600 Максимальная температура: #{@max_temp}\u00B0C"
+    puts "\u2746 Минимальная температура: #{@min_temp}\u00B0C"
+    puts "\u2691 Ветер - до #{@max_wind} м/с"
+    puts "\u2601 " + @@CLOUD[@cloudiness.to_i] + '.'
   end
 
   def self.forecast_return daytime
-        daytime.each_with_index do |time, ind|
-      puts @@DAYTIME[time] + ':'
+    daytime.each_with_index do |time, ind|
+      print @@DAYTIME[time] + ' '
       puts get_forecast(ind).to_s
       puts
     end
