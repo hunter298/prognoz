@@ -25,9 +25,9 @@ class ForecastInfo
 
   end
 
-  def self.get_forecast index
+  def self.get_forecast index, city
 
-    uri = URI.parse("https://xml.meteoservice.ru/export/gismeteo/point/2933.xml")
+    uri = URI.parse("https://xml.meteoservice.ru/export/gismeteo/point/#{city}.xml")
     response = Net::HTTP.get_response uri
     doc = REXML::Document.new(response.body)
 
@@ -52,10 +52,10 @@ class ForecastInfo
     puts "\u2601 " + @@CLOUD[@cloudiness.to_i] + '.'
   end
 
-  def self.forecast_return daytime
+  def self.forecast_return daytime, city
     daytime.each_with_index do |time, ind|
       print @@DAYTIME[time] + ' '
-      puts get_forecast(ind).to_s
+      puts get_forecast(ind, city).to_s
       puts
     end
     return nil
